@@ -1,0 +1,9 @@
+services:
+  nginx-relay:
+    image: nginx:stable-alpine@sha256:d83c0138ea82c9f05c4378a5001e0c71256b647603c10c186bd7697a4db722d3
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./data/nginx-relay:/usr/conf.d
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; /usr/sbin/nginx -s reload; done & /usr/sbin/nginx -c /usr/conf.d/${NGINX_RELAY_CONFIG:-nginx.conf} -g \"daemon off;\"'"
