@@ -4,6 +4,8 @@ When access to the app's signaling servers is blocked in your country, proxies c
 In addition to the in-app proxies, you can create your own or use a proxy created by someone else.
 Proxies cannot access the contents being exchanged under any circumstances.
 
+![Twinlife proxy](https://raw.githubusercontent.com/Twinlife/twinme-proxy/refs/heads/main/twinlife-proxy.png)
+
 To run a Twinlife proxy, you will need a host that has port 443 available and optionaly a domain name that points to that host.
 
 1. Install Docker by following the instructions at https://docs.docker.com/engine/install/
