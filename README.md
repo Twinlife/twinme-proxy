@@ -14,8 +14,15 @@ To run a Twinlife proxy, you will need a host that has port 443 available and op
 
 Your proxy is now running! You can share this with these URLs:
 
-- For twinme: `https://proxy.twin.me/#<your_host_name|IP>`
-- For Skred: `https://proxy.skred.mobi/#<your_host_name|IP>`
+- For twinme: `https://proxy.twin.me/<your_host_name|IP>`
+- For Skred: `https://proxy.skred.mobi/<your_host_name|IP>`
+
+When using the IP address format, make sure to use the public IP address of your server.  You can also specify the TCP/IP port number if
+you decided to change it.  Exemple: `https://proxy.twin,me/1.2.3.4:8443`.
+
+We are aware of some issues with twinme and Skred application when you have to enter manually a proxy configuration.
+The URL form is recognized by the QR-code scanner but if you enter manually, you must enter the IP address or hostname.
+We will fix these issues as quickly as possible.
 
 ## Updating from a previous version
 
