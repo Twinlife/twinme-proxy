@@ -7,22 +7,21 @@ Proxies cannot access the contents being exchanged under any circumstances.
 ![Twinlife proxy](https://raw.githubusercontent.com/Twinlife/twinme-proxy/refs/heads/main/twinlife-proxy.png)
 
 To run a Twinlife proxy, you will need a host that has port 443 available and optionaly a domain name that points to that host.
+The proxy is only used to communicate with our signaling server and messages, audio and video calls are exchanged only between devices
+and not through the proxy.  Expect a limited traffic per user so that we small VPS can be enough.
 
 1. Install Docker by following the instructions at https://docs.docker.com/engine/install/
 2. Clone this repository
-3. `docker compose up --detach`
+3. Run the `setup.sh` script to configure the nginx proxy for your custom SNI
+4. `docker compose up --detach`
 
 Your proxy is now running! You can share this with these URLs:
 
-- For twinme: `https://proxy.twin.me/<your_host_name|IP>`
-- For Skred: `https://proxy.skred.mobi/<your_host_name|IP>`
+- For twinme: `https://proxy.twin.me/<your_host_name|IP>,<custom-SNI>`
+- For Skred: `https://proxy.skred.mobi/<your_host_name|IP>,<custom-SNI>`
 
 When using the IP address format, make sure to use the public IP address of your server.  You can also specify the TCP/IP port number if
 you decided to change it.  Exemple: `https://proxy.twin,me/1.2.3.4:8443`.
-
-We are aware of some issues with twinme and Skred application when you have to enter manually a proxy configuration.
-The URL form is recognized by the QR-code scanner but if you enter manually, you must enter the IP address or hostname.
-We will fix these issues as quickly as possible.
 
 ## Updating from a previous version
 
@@ -46,3 +45,6 @@ Our Twinlife proxy is a simplified version of the excellent [Signal TLS proxy](h
 The main difference is that Twinlife proxy don't require to setup a Let's encrypt certificate nor a domain name.
 The drawback is that the TLS handshake will still show the connection to our servers.
 
+## References
+
+- https://nginx.org/en/docs/http/ngx_http_map_module.html
