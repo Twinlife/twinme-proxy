@@ -13,12 +13,13 @@ and not through the proxy.  Expect a limited traffic per user so that a small VP
 1. Install Docker by following the instructions at <https://docs.docker.com/engine/install/>
 2. Clone this repository
 3. Run the `setup.sh` script to configure the nginx proxy for your custom SNI
-4. `docker compose up --detach`
+4. `docker compose build`
+5. `docker compose up --detach`
 
 Your proxy is now running! You can share this with these URLs:
 
-- For twinme: `https://proxy.twin.me/<your_host_name|IP>,<custom-SNI>`
-- For Skred: `https://proxy.skred.mobi/<your_host_name|IP>,<custom-SNI>`
+- For twinme: `https://proxy.twin.me/<your_host_name|IP>,<custom-SNI>,<STUN-port>`
+- For Skred: `https://proxy.skred.mobi/<your_host_name|IP>,<custom-SNI>,<STUN-port>`
 
 When using the IP address format, make sure to use the public IP address of your server.  You can also specify the TCP/IP port number if
 you decided to change it.  Example: `https://proxy.twin.me/1.2.3.4:8443`.

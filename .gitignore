@@ -1,4 +1,5 @@
 .env
 *~
 data/nginx-relay/nginx-proxy.conf
+data/coturn/turnserver.conf
 

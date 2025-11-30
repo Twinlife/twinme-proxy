@@ -7,3 +7,12 @@ services:
     volumes:
       - ./data/nginx-relay:/usr/conf.d
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; /usr/sbin/nginx -s reload; done & /usr/sbin/nginx -c /usr/conf.d/${NGINX_RELAY_CONFIG:-nginx.conf} -g \"daemon off;\"'"
+  stun:
+    image: stun-image
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - ./data/coturn:/usr/conf.d
+    build:
+      context: .
+      dockerfile: Dockerfile

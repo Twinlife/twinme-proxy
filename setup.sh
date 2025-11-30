@@ -5,11 +5,12 @@ CONFIG_APP=
 CUSTOM_SNI=
 PROXY_IP=
 NGINX_RELAY_CONFIG=nginx-proxy.conf
+STUN_PORT=3478
 if test -f .env; then
     . .env
 fi
 
-/bin/echo -n "Which application are you using, skred or twinme ? ${CONFIG_APP} "
+/bin/echo -n "Which application are you using, Skred or twinme ? ${CONFIG_APP} "
 read APP
 if test T${APP} = T; then
     APP=${CONFIG_APP}
@@ -47,26 +48,36 @@ if test T${IP} = T; then
     IP=${PROXY_IP}
 fi
 
+/bin/echo -n "What is the STUN port for your proxy ? ${STUN_PORT} "
+read SPORT
+if test T${SPORT} = T; then
+    SPORT=${STUN_PORT}
+fi
+
 echo ""
 /bin/echo -n "Your proxy link is: "
 case $APP in
   skred|Skred)
-     echo https://proxy.skred.mobi/${IP}${PORT},${SNI}
+     echo https://proxy.skred.mobi/${IP}${PORT},${SNI},${STUN_PORT}
      ;;
 
   twinme|twinme+)
-     echo https://proxy.twin.me/${IP}${PORT},${SNI}
+     echo https://proxy.twin.me/${IP}${PORT},${SNI},${STUN_PORT}
      ;;
 esac
 
-sed -e "s,SERVER_NAME,${SERVER_NAME},g" -e "s,CUSTOM_SNI,${SNI},g" < data/nginx-relay/nginx-template.conf > data/nginx-relay/nginx-proxy.conf
+sed -e "s,SERVER_NAME,${SERVER_NAME},g" \
+    -e "s,CUSTOM_SNI,${SNI},g" < data/nginx-relay/nginx-template.conf > data/nginx-relay/nginx-proxy.conf
+sed -e "s,STUN_PORT,${SPORT},g" < data/coturn/turnserver-template.conf > data/coturn/turnserver.conf
 
 echo ""
 echo "Your nginx configuration was created in data/nginx-relay/nginx-proxy.conf"
+echo "Your STUN configuration was created in data/coturn/turnserver.conf"
 echo "Your configuration is saved in '.env' and you can change by running the setup script again."
 echo "CONFIG_APP=${APP}" > .env
 echo "CUSTOM_SNI=${SNI}" >> .env
 echo "PROXY_IP=${IP}" >> .env
+echo "STUN_PORT=${SPORT}" >> .env
 echo "NGINX_RELAY_CONFIG=nginx-proxy.conf" >> .env
 
 echo ""
